@@ -2,22 +2,28 @@ import math
 import matplotlib.pyplot as plt
 import numpy as np
 
-#The purpose of this program is to model the stresses in a circular tunnel for ME 537 HW # 3
+#The purpose of this program is to calculate the Radial, Tangential and Shear Stress in a circular tunnel given input parameters.
 
 def RadialStress(Pz, Diameter, k, Theta, r, Pi):
-    #This Function will Return a Radial Stress at a given point
+    """
+    RadialStress Function will Return the Radial Stress at a given point (r, Theta) and input parameters (Pz, Diameter, k, Pi)
+    """
     a = Diameter/2
     Theta = math.radians(Theta)
     return (1/2)*Pz*((1+k)*(1-(a**2)/(r**2))+(1-k)*(1-4*(a**2)/(r**2)+3*(a**4)/(r**4))*math.cos(2*Theta))+Pi*((a**2)/(r**2))
 
 def TangentialStress(Pz, Diameter, k, Theta, r, Pi):
-    #This Function will Return a Tangential Stress given input parameters
+    """
+    TangentialStress Function will Return the Tangential Stress given point (r, Theta) and input parameters (Pz, Diameter, k, Pi)
+    """
     a = Diameter/2
     Theta = math.radians(Theta)
     return (1/2)*Pz*((1+k)*(1+(a**2)/(r**2))-(1-k)*(1+3*(a**4)/(r**4))*math.cos(2*Theta))-Pi*((a**2)/(r**2))
 
 def ShearStress(Pz, Diameter, k, Theta, r):
-    #The purpose of this program is to determine the shear stress of a circular tunnel
+    """
+    ShearStress Function will Return the Tangential Stress given point (r, Theta) and input parameters (Pz, Diameter, k, Pi)
+    """
     a = Diameter/2
     Theta = math.radians(Theta)
     return (1/2)*Pz*(-(1-k)*(1+2*(a**2)/(r**2)-3*(a**4)/(r**4))*math.sin(2*Theta))
@@ -34,10 +40,6 @@ def OverStressZone(RadStress, TanStress, ShrStress, c=800, phi=32):
         return 0
     
 def main():
-
-    
-            
-
 
     RadStress = []
     TanStress = []
