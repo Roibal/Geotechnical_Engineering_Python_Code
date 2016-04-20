@@ -50,7 +50,7 @@ def main():
         Pi = 0
         Diameter = 10
         Theta = 90
-    #Determine Stresses for K = 0.5 and Plot Resulting Stresses
+    #Determine Stresses for Varying r and Plot Resulting Stresses
         for r in range(5,60,1):
             RadStress.append(RadialStress(Pz, Diameter, k, Theta, r, Pi))
             TanStress.append(TangentialStress(Pz, Diameter, k, Theta, r, Pi))
@@ -62,10 +62,8 @@ def main():
         plt.xlabel('Feet')
         plt.ylabel('Stress (PSI)')
         plt.title('Tangential and Radial Stresses')
+        plt.legend()
 
-
-
-    
     #Graphing for Internal Pressure = 500 PSI
     for k in [0.5, 1, 2.5]:
         Pi = 500
@@ -86,7 +84,7 @@ def main():
         plt.xlabel('Feet')
         plt.ylabel('Stress (PSI)')
         plt.title('Tangential and Radial Stresses, Internal Pressure of 500')
-
+    plt.legend()
     plt.show()
 
     #Problem 2
