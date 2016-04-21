@@ -75,8 +75,18 @@ def main():
             CharCurve.append(inward_radial_disp_plastic(ro,Po,Pcr,v,E,Rp[i-1],Pi))
         Pi -= 0.5
     
-    plt.plot(Rp, PiList)        #Works for plotting 
-    plt.plot(CharCurve, PiList)
+    fig, ax1 = plt.subplots()
+    ax2 = ax1.twinx()
+    ax1.plot(CharCurve, PiList, 'g-', label ="Characteristic Curve")
+    ax1.plot([0,0.4], [Pcr, Pcr], 'r', label ="Critical Stress/Pressure")
+    ax2.plot(CharCurve, Rp, 'b-', label="Radius of Plastic Zone")
+    
+    ax1.set_xlabel('Tunnel Wall Displacement')
+    ax1.set_ylabel('Support Pressure', color='g')
+    ax2.set_ylabel('Plastic Zone Radius', color='b')
+    ax2.axis([0, 0.45, 0, 12])
+    plt.legend()
+
     plt.show()
 
 if __name__ == "__main__":
