@@ -62,7 +62,6 @@ def main():
         for words in SciSentences[i]:
             SciPaper += str(words) + " "
     print(SciPaper)
-    plt.show()
 
 if __name__ == "__main__":
     main()
