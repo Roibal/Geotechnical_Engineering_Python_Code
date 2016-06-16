@@ -13,6 +13,20 @@ class VentilationSurvey(object):
     """
 
     def __init__(self, name="Example Mine Vent Survey 1"):
+        """
+        Constants from page 13, Mine Ventilation and Air Conditioning
+        All Units used are Imperial, Metric Units and Values in commented section of each variable below
+        """
+        self.MolecularWeight = 28.97                #(M)
+        self.SpecificGravity = 1                    #(S)
+        self.GasConstant = 53.35                    #(R) ft*lb/lb mass*DegreeRankine (287.045 J/kg*K)
+        self.StandardSpecificWeight = 0.0750        #(w) lb/ft**3   Standard Conditions (1.2014 kb/m**3)
+        self.StandardBarometricPressure = 29.92     #(pb) in. Hg or 14.696 psi (760 mm Hg or 101.33 kPa)
+        self.SpecHeatConstPress = 0.2403            #(cp) Btu/lb*F (1.006 kJ/kg*C)
+        self.SpecHeatConstVolume = 0.1714           #(cv) Btu/lb*F (0.717 kJ/kg*C)
+        self.RatioSpecHeats = 1.4012                #(Gamma) constant pressure and volume for any diatomic gas
+                    #pb = pa + pv (barometric pressure is sum of partial pressures of dry air (pa) and water vapor (pv)
+        
         self.name = name
         self.vent_points = []      #A Blank List is created and will store dictionaries of each data point
         print("Welcome to the Mine Ventilation Survey Python Toolbox written by Joaquin Roibal\n")
@@ -37,23 +51,12 @@ class VentilationSurvey(object):
             #Feature will be added that for loops through 1st entered line and names the following dictionary
             #from the values of first column
             pass
-        else:        self.vent_points.append({"Station Number": int(station_no),
-                                  "Description": str(desc),
-                                  "Time RAR": time_r,
-                                  "Roving Altimeter Reading": float(rar),
-                                  "Time BAR": time_b,
-                                  "Base Altimeter Reading": float(bar),
-                                  "Altitude Difference": change_alt,
-                                  "Feet of Air": feet_air,
-                                  "Inches of Water (Head)": head,
-                                  "Absolute Head": abs_head.strip()})
+        else:       
 
-    def LoadData(self, loadfile = "VentSurveyData.csv"):
+    def LoadData(self, loadfile = "Test.csv"):
         with open(loadfile, 'r') as file1:
             for line1 in file1:
                 data = line1.split(',')
-                self.Mod_AddData(data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7], data[8], data[9],
-                             data[10])
 
     def List(self):
         for item in self.vent_points:
