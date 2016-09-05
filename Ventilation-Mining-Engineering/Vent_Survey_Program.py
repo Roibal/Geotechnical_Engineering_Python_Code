@@ -39,6 +39,28 @@ def ManometerDirectMethod(TopList, BottomList, Manometer_Reading):
     #Hl12 = (144*(Top[1]-Bottom[1])/5.2)+(Ws*(Top[0]-Bottom[0])/5.2) #Page 209, Head Loss 1 -> 2
     Hl12 = round((144/5.2)*(p3-BottomList[1])+(1/5.2)*(TopList[0]-BottomList[0])*(Ws-Wh), 3)
     return "Manometer Survey Results:\nWs: %s, Wh: %s, Head Loss in. Water: %s" %(Ws, Wh, Hl12)
+    
+def NaturalVentilation(ShaftATop, ShaftABottom, ShaftBTop, ShaftBBottom):
+    """
+    The purpose of this function is to calculate the Natural Ventilation Head in Inches Water Gage.
+    Inputs required: Lists in the following format: [DryBulbTemp, WetBulbTemp, Elevation, Pressure (in Hg)
+    Method 2, page 297 in Ramani "Mine Ventilation And Air Conditioning" is used
+    :param ShaftATop:
+    :param ShaftABottom:
+    :param ShaftBTop:
+    :param ShaftBBottom:
+    :return:
+    """
+    spec_weight_air_shaft_a_top = psychrometricPropAir(ShaftATop[0], ShaftATop[1], ShaftATop[3])
+    spec_weight_air_shaft_a_bottom = psychrometricPropAir(ShaftABottom[0], ShaftABottom[1], ShaftABottom[3])
+    spec_weight_air_avg_upcast = (spec_weight_air_shaft_a_top[8] + spec_weight_air_shaft_a_bottom[8])/2
+    spec_weight_air_shaft_b_top = psychrometricPropAir(ShaftBTop[0], ShaftBTop[1], ShaftBTop[3])
+    spec_weight_air_shaft_b_bottom = psychrometricPropAir(ShaftBBottom[0], ShaftBBottom[1], ShaftBBottom[3])
+    spec_weight_air_avg_downcast = (spec_weight_air_shaft_b_top[8] + spec_weight_air_shaft_b_bottom[8])/2
+    L = ShaftBTop[2]-ShaftATop[2]
+    print(L)
+    inches_water_gage = (L/5.2)*(spec_weight_air_avg_downcast-spec_weight_air_avg_upcast)
+    return inches_water_gage
 
 def psychrometricPropAir(td, tw, pb):
     """
@@ -227,6 +249,14 @@ def main():
     list_of_head = [.445, 1.075, -8.6, 0.245, 2.8, 0.19, 0.084, 0.455, 1.50, 1.71]  #Example 6.4 pg 211 Mine Ventilation
     print("Head Loss in in H20: ", HeadLossCurcuit(list_of_head))
     LeapfroggingAltimeter()
+    
+    #An Example of Natural Ventilation Head in Inches Water, Example from Dr. Bhattacharyya ME 440 HW #1
+    ShaftATop = [63, 63, 1000, 28.95]
+    ShaftABottom = [65, 65, 300, 29.80]
+    ShaftBTop = [67, 59, 1200, 28.75]
+    ShaftBBottom = [59, 53, 500, 29.60]
+    NaturalVent = NaturalVentilation(ShaftATop, ShaftABottom, ShaftBTop, ShaftBBottom)
+    print(NaturalVent)
 
 if __name__ == "__main__":
     main()
