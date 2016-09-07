@@ -44,13 +44,16 @@ def NaturalVentilation(ShaftATop, ShaftABottom, ShaftBTop, ShaftBBottom):
     """
     The purpose of this function is to calculate the Natural Ventilation Head in Inches Water Gage.
     Inputs required: Lists in the following format: [DryBulbTemp, WetBulbTemp, Elevation, Pressure (in Hg)
-    Method 2, page 297 in Ramani "Mine Ventilation And Air Conditioning" is used
+    Method 2, page 297 in Ramani "Mine Ventilation And Air Conditioning" is used in commented example
+    Equation used is from ME 440: Mine Ventilation with Dr. Bhattacharyya, ignoring vapor pressure
     :param ShaftATop:
     :param ShaftABottom:
     :param ShaftBTop:
     :param ShaftBBottom:
     :return:
     """
+    """
+    This Section is Commented Out Because NOT WORKING: Alternative Method Below
     spec_weight_air_shaft_a_top = psychrometricPropAir(ShaftATop[0], ShaftATop[1], ShaftATop[3])
     spec_weight_air_shaft_a_bottom = psychrometricPropAir(ShaftABottom[0], ShaftABottom[1], ShaftABottom[3])
     spec_weight_air_avg_upcast = (spec_weight_air_shaft_a_top[8] + spec_weight_air_shaft_a_bottom[8])/2
@@ -59,7 +62,33 @@ def NaturalVentilation(ShaftATop, ShaftABottom, ShaftBTop, ShaftBBottom):
     spec_weight_air_avg_downcast = (spec_weight_air_shaft_b_top[8] + spec_weight_air_shaft_b_bottom[8])/2
     L = ShaftBTop[2]-ShaftATop[2]
     print(L)
+    print("Specific Weight Air Top A: ", spec_weight_air_shaft_a_top[9])
+    print("Specific Weight Air Bottom A: ", spec_weight_air_shaft_a_bottom[9])
+    print("Avg Spec Weight Upcast: ", spec_weight_air_avg_upcast)
+    print("Avg Spec Weight Downcast: ", spec_weight_air_avg_downcast)
     inches_water_gage = (L/5.2)*(spec_weight_air_avg_downcast-spec_weight_air_avg_upcast)
+    return inches_water_gage
+    """
+    
+    #The Following Method Utilizes the equation from ME 440: Mine Ventilation by Dr. Bhattacharyya
+    #NOTE: IGNORES VAPOR PRESSURE
+
+    density_air_shaft_a_top = round((1.327/(460+ShaftATop[0]))*ShaftATop[-1], 6)
+    print("Density Air Shaft A Top: ", density_air_shaft_a_top)
+    density_air_shaft_a_bottom = round((1.327/(460+ShaftABottom[0])*ShaftABottom[-1]), 6)
+    print("Density Air Shaft A Bottom: ", density_air_shaft_a_bottom)
+    density_air_shaft_b_top = round((1.327/(460+ShaftBTop[0])*ShaftBTop[-1]), 6)
+    print("Density Air Shaft B Top: ", density_air_shaft_b_top)
+    density_air_shaft_b_bottom = round((1.327/(460+ShaftBBottom[0])*ShaftBBottom[-1]), 6)
+    print("Density Air Shaft B Bottom: ", density_air_shaft_b_bottom)
+    density_avg_shaft_a = (density_air_shaft_a_bottom + density_air_shaft_a_top)/2
+    density_avg_shaft_b = (density_air_shaft_b_bottom + density_air_shaft_b_top)/2
+
+    pressure_diff = round(abs((density_avg_shaft_a - density_avg_shaft_b)), 6)
+    elevation_diff = (ShaftBTop[-2]-ShaftABottom[-2])
+    print("Pressure Difference: ", pressure_diff)
+    print("Elevation Difference: ", elevation_diff)
+    inches_water_gage = round((pressure_diff*elevation_diff)/5.2, 4)
     return inches_water_gage
 
 def psychrometricPropAir(td, tw, pb):
