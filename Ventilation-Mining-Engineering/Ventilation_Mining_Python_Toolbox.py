@@ -21,7 +21,7 @@ Determine:
 -Air Specific Weights/Humidities
 -Airway Resistance
 
-Copyright Joaquin Roibal, August 2016
+Copyright Joaquin Roibal, August 2016, Latest Revision: 10/3/2016
 All Rights Reserved
 """
 
@@ -39,6 +39,17 @@ def ManometerDirectMethod(TopList, BottomList, Manometer_Reading):
     #Hl12 = (144*(Top[1]-Bottom[1])/5.2)+(Ws*(Top[0]-Bottom[0])/5.2) #Page 209, Head Loss 1 -> 2
     Hl12 = round((144/5.2)*(p3-BottomList[1])+(1/5.2)*(TopList[0]-BottomList[0])*(Ws-Wh), 3)
     return "Manometer Survey Results:\nWs: %s, Wh: %s, Head Loss in. Water: %s" %(Ws, Wh, Hl12)
+
+def CalculateFrictionFactor(head_loss_f, length, diameter, quantity, spec_weight_air=0.075):
+    """
+    The Purpose of this function is to calculate the friction factor of an airway/ducting given parameters
+    Utilizes Darcy-Weisbach equation and Atkinson Equation, 5.20 page 153 Mine Ventilation and Air Conditioning 3rd Edition
+    """
+    duct_perimeter = 2 * 3.14159 * (diameter / 2)
+    area_opening = 3.14159 * (diameter / 2)**2
+    rubbing_surface = length * duct_perimeter
+    friction_factor_k = (spec_weight_air/0.075) * (head_loss_f*5.2*area_opening**3) / (duct_perimeter * length * quantity**2)
+    return friction_factor_k
     
 def NaturalVentilation(ShaftATop, ShaftABottom, ShaftBTop, ShaftBBottom):
     """
@@ -286,6 +297,10 @@ def main():
     ShaftBBottom = [59, 53, 500, 29.60]
     NaturalVent = NaturalVentilation(ShaftATop, ShaftABottom, ShaftBTop, ShaftBBottom)
     print(NaturalVent)
+    
+    #An Example 5.6, page 159 Ramani, Wang, Mutmansky and Hartman to calculate friction factor
+    frict_factor_k = CalculateFrictionFactor(21.04, 3000, 4, 48000, 0.075)
+    print("Example 5.6, Friction Factor K: ", frict_factor_k)
 
 if __name__ == "__main__":
     main()
