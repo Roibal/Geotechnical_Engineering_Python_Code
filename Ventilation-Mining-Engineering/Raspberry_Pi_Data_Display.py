@@ -49,9 +49,9 @@ def displaygraphs(user_input='Meas_Test.csv'):
     make_patch_spines_invisible(par2)
     par2.spines["right"].set_visible(True)
     
-    p1, = host.plot(datetime_list, spec_weight_list, "b-", label="Specific Weight")
-    p2, = par1.plot(datetime_list, temp_list, "r-", label="Temperature")
-    p3, = par2.plot(datetime_list, press_list, "g-", label="Pressure")
+    p1, = host.plot(datetime_list, spec_weight_list, "b-", label="Specific Weight (kg/m^3)")
+    p2, = par1.plot(datetime_list, temp_list, "r-", label="Temperature (C)")
+    p3, = par2.plot(datetime_list, press_list, "g-", label="Pressure (kPa)")
 
     host.set_title("Measurement and Recording of Temperature, Pressure, Specific Weight")
     host.set_xlabel("Time")
