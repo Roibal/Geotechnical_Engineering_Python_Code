@@ -6,11 +6,13 @@ import time as time2
 
 sense = SenseHat()		#create sensehat object
 
-
-#The purpose of this program is to accept input from Raspberry pi sense hat
-#and calculate and display specific weight of air on LED matrix. Units are in metric.
-#Copyright Joaquin Roibal, June 2016, All Rights Reserved 
-
+"""
+The purpose of this program is to accept input from Raspberry pi sense hat
+and calculate and display specific weight of air on LED matrix. Units are in metric.
+Copyright Joaquin Roibal, June 2016, All Rights Reserved 
+Latest Modification: October 2016
+Description: Added Data Collection Module which will record in a csv file
+"""
 
 def main():
 	while 1:			#Create Infinite Loop to accept input, calc values, reloads after LED completes message
