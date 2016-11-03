@@ -54,7 +54,7 @@ def dataCollectStore(i, t, tw, p, h, spec_weight, input_file='JR1_Data_Collect.c
     Name of Files to be changed for each Raspberry Pi [3/4 Digit Key] Data Collection with Sense HAT.
     """
     time = datetime.datetime.now()
-    time_list = str(time.month)+"/"+str(time.day)+"/"+str(time.year)+" "+str(time.hour)+":"+str(time.minute)+":"+str(time.second)
+    time_list = str(time.month)+"/"+str(time.day)+"/"+str(time.year)+" , "+str(time.hour)+":"+str(time.minute)+":"+str(time.second)
 
     with open(input_file, 'a') as f:
         #Data will be written to a file in the format [i, t, tw, p, h, spec_weight] and time
