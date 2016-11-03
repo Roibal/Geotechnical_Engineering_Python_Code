@@ -14,6 +14,6 @@ The purpose of this repository is to collect python code developed by Joaquin Ro
 
 "Ventilation_Mining_Python_Toolbox.py" is the main engine behind many of the programs listed on this page. This script can be imported as a module and is a collection of functions useful for a ventilation engineer to calculate air properties in a mining environment and used in further python programs for ventilation engineers to develop their own tests/data collection. 
 
-"senseHAT_Data_Collection.py" will record and collect data which can then be displayed with "Raspberry_Pi_Data_Display.py" python code. The interval for recording of data can be adjusted in the script. This file will accept a unique ID for data collection and records values (temperature, humidity, pressure, time) into a CSV file which can then be analyzed using Vent Toolbox tools or Microsoft Excel format. 
+"senseHAT_data_collection.py" will record and collect data which can then be displayed with "Raspberry_Pi_Data_Display.py" python code. The interval for recording of data can be adjusted in the script. This file will accept a unique ID for data collection and records values (temperature, humidity, pressure, time) into a CSV file which can then be analyzed using Vent Toolbox tools or Microsoft Excel format. 
 
 Read More About Ventilation Engineering at the Ventilation Engineering Wiki here: https://github.com/Roibal/Geotechnical_Engineering_Python_Code/wiki
