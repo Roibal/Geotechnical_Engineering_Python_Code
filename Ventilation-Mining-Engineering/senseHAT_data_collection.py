@@ -29,7 +29,7 @@ def main():
         print(data)
         dataCollectStore(i, t, p, h)
 
-def dataCollectStore(i, t, tw, p, h, spec_weight, input_file='JR1_Data_Collect.csv', sleep_interval=5):
+def dataCollectStore(i, t, p, h, input_file='JR1_Data_Collect.csv', sleep_interval=300):
     """
     The purpose of this function is to collect and store data from Sense Hat including time stamp and
     creating a file with measured values
@@ -40,7 +40,7 @@ def dataCollectStore(i, t, tw, p, h, spec_weight, input_file='JR1_Data_Collect.c
 
     with open(input_file, 'a') as f:
         #Data will be written to a file in the format [i, t, tw, p, h, spec_weight] and time
-        f.write(str(i)+","+str(t)+","+str(tw)+","+str(p)+","+str(h)+","+str(spec_weight)+" , "+ time_list + "\n")
+        f.write(str(i)+","+str(t)+","+str(p)+","+str(h)+" , "+ time_list + "\n")
 
     time2.sleep(sleep_interval)		#One Value Recorded for each loop, sleep interval determines pause in seconds
 
