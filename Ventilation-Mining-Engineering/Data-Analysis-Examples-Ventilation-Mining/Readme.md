@@ -1,4 +1,4 @@
-**Data Analysis of New Method of Ventilation Surveying in Underground Mining**
+*Data Analysis of New Method of Ventilation Surveying in Underground Mining*
 
 ***Methodology***
 
