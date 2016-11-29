@@ -11,6 +11,5 @@ Primary Focus is development of a ventilation engineering software program for t
   *Radial and Tangential Stress analysis for Circular Tunnel
   *Characteristic Curve for Elastic and Plastic Deformation of Circular Tunnel
 
-Copyright 2016 
-Joaquin Roibal
-All Rights Reserved
+Copyright 2016  (c) Joaquin Roibal
+MIT License
